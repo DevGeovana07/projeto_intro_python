@@ -1,9 +1,3 @@
-# indice - usado para controlar e referenciar as dispesas e receita
-indice = 0
-
-# descrição, valor, data
-despesas = {}
-receita = {}
 
 def cadastra(dic, id):
     info = []
@@ -19,7 +13,29 @@ def cadastra(dic, id):
     info.append(mes)
     info.append(ano)
     # add a despesa
-    despesas[id] = info
+    dic[id] = info
+
+
+def listar(dic, id, flag):
+    # verifica se há dados para ser exibidos
+    if len(dic) == 0:
+        print('Não há dados.')
+        return
+    # para exibir as informações na sequência q foram cadastradas
+    if flag == 'depesas':
+        for indice, dados in dic.items():  # 'dados' é composta pelos seguintes dados: descrição, valor, dia, mes, ano
+            print(f"""Despesa #{indice+1}
+Descrição: {dados[0]}
+Valor: R$ {dados[1]:.2f}
+Data: {dados[2]}/{dados[3]}/{dados[4]} 
+            """)
+    else:
+        for indice, dados in dic.items():  # 'dados' é composta pelos seguintes dados: descrição, valor, dia, mes, ano
+            print(f"""Receita #{indice+1}
+Descrição: {dados[0]}
+Valor: R$ {dados[1]:.2f}
+Data: {dados[2]}/{dados[3]}/{dados[4]} 
+            """)
 
 
 def menu1():
@@ -29,43 +45,58 @@ def menu1():
     3 - Relatório
     4 - Sair''')
 
+
 def menu2():
     print('''------ Menu ------
     1 - Cadastra
-    2 - Lista
+    2 - Listar
     3 - Valor total
     4 - Exclusão
     5 - Sair''')
 
+
+# inicio código 'main'
 menu1()
+despesas = {}
+receita = {}
+
+# indice - usado para controlar e referenciar as dispesas e receita
+indice_depesas = 0
+indice_receita = 0
+
 op = int(input("Digite a opção: "))
 
 while op:
     if op == 1:
-        print("Entrando em despesas!") 
+        print("Entrando em despesas!")
         menu2()
         op = int(input("Digite a opção: "))
 
         while op:
             # despesas
             if op == 1:
-                cadastra(despesas, indice)
-                indice += 1
-            if op == 5:
+                cadastra(despesas, indice_depesas)
+                indice_depesas += 1
+            elif op == 2:
+                listar(despesas, indice_depesas, 'depesas')
+            elif op == 5:
                 break
 
             menu2()
             op = int(input("Digite a opção: "))
     elif op == 2:
-        print("Entrando em receitas!") 
+        print("Entrando em receitas!")
         menu2()
         op = int(input("Digite a opção: "))
 
         while op:
             # despesas
             if op == 1:
-                cadastra(receita)
-            if op == 5:
+                cadastra(receita, indice_receita)
+                indice_receita += 1
+            elif op == 2:
+                listar(receita, indice_receita, 'receita')
+            elif op == 5:
                 break
 
             menu2()
