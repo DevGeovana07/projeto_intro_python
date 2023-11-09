@@ -37,10 +37,10 @@ Valor: R$ {dados[1]:.2f}
 Data: {dados[2]}/{dados[3]}/{dados[4]} 
             """)
 
-def valorTotal(dic):
+def valorTotal(dic): # Função que calcula o valor total das despesas e das receitas.
     total = 0
     for dados in dic.values():
-        total += dados[1]  # O valor da despesa ou receita está na posição 1 do dict (índice 1).
+        total += dados[1]  
     return total
 
 
