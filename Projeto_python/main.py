@@ -1,7 +1,7 @@
 
 def cadastra(dic, id):
     info = []
-    nome = input("Títluo: ")
+    nome = input("Descrição: ")
     valor = float(input("Valor: "))
     print("Agora informe a data.")
     dia = int(input("Dia: "))
@@ -36,6 +36,16 @@ Descrição: {dados[0]}
 Valor: R$ {dados[1]:.2f}
 Data: {dados[2]}/{dados[3]}/{dados[4]} 
             """)
+
+def valorTotal(dic):
+    total = 0
+    for dados in dic.values():
+        total += dados[1]  # O valor da despesa ou receita está na posição 1 do dict (índice 1).
+    return total
+
+
+def main():
+    transacoes = []
 
 
 def menu1():
@@ -78,7 +88,10 @@ while op:
                 cadastra(despesas, indice_depesas)
                 indice_depesas += 1
             elif op == 2:
-                listar(despesas, indice_depesas, 'depesas')
+                listar(despesas, indice_depesas, 'depesas') 
+            elif op ==3:
+                totalDespesas = valorTotal(despesas)
+                print(f"Valor Total de Despesas: R${totalDespesas:.2f}")
             elif op == 5:
                 break
 
@@ -90,12 +103,15 @@ while op:
         op = int(input("Digite a opção: "))
 
         while op:
-            # despesas
+            # receita
             if op == 1:
                 cadastra(receita, indice_receita)
                 indice_receita += 1
             elif op == 2:
-                listar(receita, indice_receita, 'receita')
+                listar(receita, indice_receita, 'receita')     
+            elif op ==3:
+                 totalReceitas = valorTotal(receita)
+                 print(f"Valor Total de Receitas: R${totalReceitas:.2f}")          
             elif op == 5:
                 break
 
