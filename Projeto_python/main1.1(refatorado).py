@@ -72,7 +72,7 @@ def exclusao(dic, tipo):
                 else:
                     print(f"Índice {indice} não encontrado.")
             finally:
-                print("Digite 'S' para SIM e 'N' para NÃO, se você realmente deseja excluir. ")
+                print("ERRO: Digite 'S' para SIM e 'N' para NÃO, se você realmente deseja excluir. ")
     except ValueError:
         print("ERRO: É necessário inserir o número da despesa ou receita que deseja excluir.")
 
