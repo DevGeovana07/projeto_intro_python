@@ -1,15 +1,20 @@
+# Função para cadastrar uma despesa ou receita no dicionário
 def cadastra(dic):
-    info = []
-    nome = input("Descrição: ")
-    valor = float(input("Valor: "))
-    print("Agora informe a data.")
-    dia = int(input("Dia: "))
-    mes = int(input("Mês: "))
-    ano = int(input("Ano: "))
-    info.extend([nome, valor, dia, mes, ano])
-    dic[len(dic) + 1] = info
+    try:
+        info = []
+        nome = input("Descrição: ")
+        valor = float(input("Valor: "))
+        print("Agora informe a data.")
+        dia = int(input("Dia: "))
+        mes = int(input("Mês: "))
+        ano = int(input("Ano: "))
+        info.extend([nome, valor, dia, mes, ano])
+        dic[len(dic) + 1] = info
+    except ValueError:
+        print('ERRO: É necessario inserir um número no campo "Valor" e números inteiros nos campos "Dia", "Mês" e "Ano".')
 
 
+# Função para listar despesas ou receitas
 def listar(dic, tipo):
     if not dic:
         print(f"Não há {tipo}.")
@@ -21,11 +26,13 @@ def listar(dic, tipo):
             print(f"Data: {dados[2]}/{dados[3]}/{dados[4]}\n")
 
 
+# Função para calcular o valor total 
 def calcular_total(dic):
     total = sum(dados[1] for dados in dic.values())
     return total
 
 
+# Função para gerar o relatório com todas as informações do usuário
 def relatorio(despesas, receitas):
     total_despesas = calcular_total(despesas)
     total_receitas = calcular_total(receitas)
@@ -47,29 +54,40 @@ def relatorio(despesas, receitas):
     print(f"Saldo: R$ {saldo:.2f}")
 
 
+# Função para excluir uma despesa ou receita do dicionário
 def exclusao(dic, tipo):
-    if not dic:
-        print(f"Não há {tipo}.")
-    else:
-        indice = int(input(f"Digite o índice da {tipo} que deseja excluir: "))
-        if indice in dic:
-            print(
-                f"Deseja mesmo excluir a seguinte informação?\n{dic[indice]}")
-            confirma = input("[S - Sim / N - Não]\nR: ").upper()
-            if confirma == 'S':
-                dic.pop(indice)
-                print("Item excluído com sucesso.")
+    try:
+        if not dic:
+            print(f"Não há {tipo}.")
         else:
-            print(f"Índice {indice} não encontrado.")
+            indice = int(input(f"Digite o índice da {tipo} que deseja excluir: "))
+            try:
+                if indice in dic:
+                    print(
+                        f"Deseja mesmo excluir a seguinte informação?\n{dic[indice]}")
+                    confirma = input("[S - Sim / N - Não]\nR: ").upper()
+                    if confirma == 'S':
+                        dic.pop(indice)
+                        print("Item excluído com sucesso.")
+                else:
+                    print(f"Índice {indice} não encontrado.")
+            finally:
+                print("Digite 'S' para SIM e 'N' para NÃO, se você realmente deseja excluir. ")
+    except ValueError:
+        print("ERRO: É necessário inserir o número da despesa ou receita que deseja excluir.")
 
-
+# Função para exibir o menu e obter a escolha do usuário
 def menu(opcoes):
-    for opcao in opcoes:
-        print(f"{opcao} - {opcoes[opcao]}")
-    op = int(input("Digite a opção: "))
-    return op
+    try:
+        for opcao in opcoes:
+            print(f"{opcao} - {opcoes[opcao]}")
+        op = int(input("Digite a opção: "))
+        return op
+    except ValueError:
+        print("ERRO: É necessário inserir o número das opções acima.")
 
 
+# Função menu de despesas
 def despesas_menu():
     despesas = {}
     opcoes = {
@@ -101,6 +119,7 @@ def despesas_menu():
     return despesas  # Adicionando retorno do dicionário atualizado
 
 
+# Função menu de receitas
 def receitas_menu():
     receitas = {}
     opcoes = {
@@ -132,7 +151,9 @@ def receitas_menu():
     return receitas  # Adicionando retorno do dicionário atualizado
 
 
+# Principal função que controla o fluxo do programa
 def main():
+    print("========= MENU ========= ")
     opcoes_principais = {
         1: 'Despesas',
         2: 'Receitas',
@@ -156,6 +177,8 @@ def main():
 
         op = menu(opcoes_principais)
 
+
+    print("Encerrando o programa.") # Imprimindo para o usuário que o programa foi encerrado.
 
 if __name__ == "__main__":
     main()
