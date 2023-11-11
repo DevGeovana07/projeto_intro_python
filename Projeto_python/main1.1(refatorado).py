@@ -13,7 +13,6 @@ def cadastra(dic):
     except ValueError:
         print('ERRO: É necessario inserir um número no campo "Valor" e números inteiros nos campos "Dia", "Mês" e "Ano".')
 
-
 # Função para listar despesas ou receitas
 def listar(dic, tipo):
     if not dic:
@@ -53,7 +52,6 @@ def relatorio(despesas, receitas):
     print("========== Saldo ==========")
     print(f"Saldo: R$ {saldo:.2f}")
 
-
 # Função para excluir uma despesa ou receita do dicionário
 def exclusao(dic, tipo):
     try:
@@ -63,19 +61,19 @@ def exclusao(dic, tipo):
             indice = int(input(f"Digite o índice da {tipo} que deseja excluir: "))
             try:
                 if indice in dic:
-                    print(
-                        f"Deseja mesmo excluir a seguinte informação?\n{dic[indice]}")
-                    confirma = input("[S - Sim / N - Não]\nR: ").upper()
-                    if confirma == 'S':
-                        dic.pop(indice)
-                        print("Item excluído com sucesso.")
-                else:
-                    print(f"Índice {indice} não encontrado.")
-            finally:
-                print("ERRO: Digite 'S' para SIM e 'N' para NÃO, se você realmente deseja excluir. ")
+                        print(
+                            f"Deseja mesmo excluir a seguinte informação?\n{dic[indice]}")
+                        confirma = int(input("[1 - Sim | 2 - Não]\nR: "))
+                        if confirma == 1:
+                            dic.pop(indice)
+                            print("Item excluído com sucesso.")
+                        if confirma == 2:
+                            print(f"Operação cancelada.")
+            except ValueError:
+                print("ERRO: Digite '1' para SIM e '2' para NÃO, se você deseja excluir ou não. ")
     except ValueError:
         print("ERRO: É necessário inserir o número da despesa ou receita que deseja excluir.")
-
+        
 # Função para exibir o menu e obter a escolha do usuário
 def menu(opcoes):
     try:
@@ -85,7 +83,6 @@ def menu(opcoes):
         return op
     except ValueError:
         print("ERRO: É necessário inserir o número das opções acima.")
-
 
 # Função menu de despesas
 def despesas_menu():
@@ -118,7 +115,6 @@ def despesas_menu():
 
     return despesas  # Adicionando retorno do dicionário atualizado
 
-
 # Função menu de receitas
 def receitas_menu():
     receitas = {}
@@ -150,7 +146,6 @@ def receitas_menu():
 
     return receitas  # Adicionando retorno do dicionário atualizado
 
-
 # Principal função que controla o fluxo do programa
 def main():
     print("========= MENU ========= ")
@@ -176,7 +171,6 @@ def main():
             relatorio(despesas, receitas)
 
         op = menu(opcoes_principais)
-
 
     print("Encerrando o programa.") # Imprimindo para o usuário que o programa foi encerrado.
 
