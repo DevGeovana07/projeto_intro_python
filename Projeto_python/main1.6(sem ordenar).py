@@ -9,34 +9,18 @@ receitas = {}  # Adicionando inicialização dos dicionários
 def limpaTela():
     os.system('cls')
 
-# retorna a quantidade de dias que cada mês possui
-
 
 def quantDias(mes):
-    if mes == 1:
+    meses_31_dias = {1, 3, 5, 7, 8, 10, 12}
+    meses_30_dias = {4, 6, 9, 11}
+
+    if mes in meses_31_dias:
         return 31
-    elif mes == 2:
+    elif mes in meses_30_dias:
+        return 30
+    else:
         return 28
-    elif mes == 3:
-        return 31
-    elif mes == 4:
-        return 30
-    elif mes == 5:
-        return 31
-    elif mes == 6:
-        return 30
-    elif mes == 7:
-        return 31
-    elif mes == 8:
-        return 31
-    elif mes == 9:
-        return 30
-    elif mes == 10:
-        return 31
-    elif mes == 11:
-        return 30
-    elif mes == 12:
-        return 31
+
 
 # Função para cadastrar uma despesa ou receita no dicionário
 
@@ -86,11 +70,13 @@ def listar(dic, tipo):
     if not dic:
         print(f"Não há {tipo}.")
     else:
-        for indice, dados in dic.items():
+        indice = 1
+        for nao_usado, dados in dic.items():
             print(f"{tipo.capitalize()} #{indice}")
             print(f"Descrição: {dados[0]}")
             print(f"Valor: R$ {dados[1]:.2f}")
             print(f"Data: {dados[2][0]}/{dados[2][1]}/{dados[2][2]}\n")
+            indice += 1
 
 
 # Função para calcular o valor total
